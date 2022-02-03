@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "dev": "ts-node-dev --respawn --transpile-only build/app.js",
     "build": "tsc",
-    "start": "ts-node src/app.ts",
+    "start": "ts-node build/app.js",
     "postinstall": "npm run build-ts",
     "watch-ts": "tsc -w",
     "build-ts": "tsc",
-    "watch-node": "nodemon src/app.ts"
+    "watch-node": "nodemon build/app.js"
   },
   "keywords": [],
   "author": "",
