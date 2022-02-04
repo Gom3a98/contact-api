@@ -47,7 +47,7 @@ export default class Contact {
         DB.query(sql,[id], callback);
     }
     updateContact(id: Number, callback: Function) {
-        let sql = "UPDATE Contact SET contact_name = $1 ,email = $2 , contact_image = $3 ,phone_number = $4 , country_code = $5 , isfavorite = $6 WHERE ID= $7";
+        let sql = "UPDATE Contact SET contact_name = $1 ,email = $2 , contact_image = $3 ,phone_number = $4 , country_code = $5 , isfavorite = $6 WHERE id= $7";
         DB.query(sql, [this.name, this.email, this.image, this.phoneNumber, this.country_code, this.isFavorite , id], callback);
     }
     toggleIsFavorite(status: Boolean, id: String, callback: Function) {

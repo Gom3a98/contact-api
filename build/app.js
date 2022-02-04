@@ -1,4 +1,5 @@
 "use strict";
+// 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  >>>>>>> github access token
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -20,3 +21,4 @@ app.use(body_parser_1.default.json({ limit: '10mb' }));
 app.use(body_parser_1.default.json());
 app.use("/api", routes_1.default);
 exports.default = app;
+//# sourceMappingURL=app.js.map

@@ -16,12 +16,12 @@ class Contact {
         this.isFavorite = isFavorite;
     }
     getAllContacts(callback) {
-        let sql = "select * from Contact order by name ASC";
+        let sql = "select * from Contact order by contact_name ASC";
         connect_1.default.query(sql, callback);
         logger_1.default.info("All Contacts is Retrieved");
     }
     getContactByName(name, callback) {
-        let sql = "select * from Contact where name like $1";
+        let sql = "select * from Contact where contact_name like $1";
         connect_1.default.query(sql, [name], callback);
     }
     getContactById(id, callback) {
@@ -33,7 +33,7 @@ class Contact {
         connect_1.default.query(sql, [phoneNumber], callback);
     }
     saveContact(callback) {
-        let sql = "INSERT INTO Contact (name, email , image ,phone_number, country_code, isFavorite) VALUES ($1,$2,$3,$4,$5 , $6)";
+        let sql = "INSERT INTO Contact (contact_name, email , contact_image ,phone_number, country_code, isfavorite) VALUES ($1,$2,$3,$4,$5 , $6)";
         connect_1.default.query(sql, [this.name, this.email, this.image, this.phoneNumber, this.country_code, this.isFavorite], callback);
     }
     deleteContact(id, callback) {
@@ -41,11 +41,11 @@ class Contact {
         connect_1.default.query(sql, [id], callback);
     }
     updateContact(id, callback) {
-        let sql = "UPDATE Contact SET name = $1 ,email = $2 , image = $3 ,phone_number = $4 , country_code = $5 , isFavorite = $6 WHERE ID= $7";
+        let sql = "UPDATE Contact SET contact_name = $1 ,email = $2 , contact_image = $3 ,phone_number = $4 , country_code = $5 , isfavorite = $6 WHERE ID= $7";
         connect_1.default.query(sql, [this.name, this.email, this.image, this.phoneNumber, this.country_code, this.isFavorite, id], callback);
     }
     toggleIsFavorite(status, id, callback) {
-        let sql = "UPDATE Contact SET isFavorite = $1 where ID = $2";
+        let sql = "UPDATE Contact SET isfavorite = $1 where id = $2";
         connect_1.default.query(sql, [status, id], callback);
     }
 }

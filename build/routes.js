@@ -18,3 +18,4 @@ router.delete("/deleteContact", contactController.deleteContact);
 router.put("/updateContact", contactController.updateContact);
 router.post("/saveContact", contactController.saveContact);
 exports.default = router;
+//# sourceMappingURL=routes.js.map

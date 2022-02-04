@@ -12,7 +12,6 @@ class ContactController {
     getAllContacts(req, res) {
         contact.getAllContacts((error, results) => {
             if (!error) {
-                logger_1.default.info("All Contacts is Retrieved");
                 res.status(200).json(results.rows);
             }
             else {
@@ -26,7 +25,7 @@ class ContactController {
         contact.getContactByName(req.body.name, (error, results) => {
             if (!error) {
                 if (results.rows.length > 0) {
-                    logger_1.default.info(`Contact with name ${results.rows[0].name} is retrieved`);
+                    logger_1.default.info(`Contact with name ${results.rows[0].contact_name} is retrieved`);
                     res.status(200).json(results.rows[0]);
                 }
                 else {
@@ -44,7 +43,7 @@ class ContactController {
         contact.getContactById(req.body.ID, (error, results) => {
             if (!error) {
                 if (results.rows.length > 0) {
-                    logger_1.default.info(`Contact with name ${results.rows[0].name} is retrieved`);
+                    logger_1.default.info(`Contact with name ${results.rows[0].contact_name} is retrieved`);
                     res.status(200).json(results.rows[0]);
                 }
                 else {
@@ -62,7 +61,7 @@ class ContactController {
         contact.getContactByPhoneNumber(req.body.phoneNumber, (error, results) => {
             if (!error) {
                 if (results.rows.length > 0) {
-                    logger_1.default.info(`Contact with name ${results.rows[0].name} is retrieved`);
+                    logger_1.default.info(`Contact with name ${results.rows[0].contact_name} is retrieved`);
                     res.status(200).json(results.rows);
                 }
                 else {
@@ -79,7 +78,6 @@ class ContactController {
     deleteContact(req, res) {
         contact.deleteContact(req.body.ID, (error, results) => {
             if (!error) {
-                console.log(results);
                 if (results.rowCount > 0) {
                     logger_1.default.info(`there is one Contact is Deleted`);
                     res.status(200).json({ message: "one Contact is deleted" });
@@ -98,8 +96,8 @@ class ContactController {
     updateContact(req, res) {
         var form = new formidable_1.default.IncomingForm();
         form.parse(req, function (err, fields, files) {
-            var oldpath = files.image.path;
-            var newpath = '/public/uploads/' + fields.name + ".jpg";
+            var oldpath = files.image.filepath;
+            var newpath = 'public/uploads/' + fields.name + ".jpg";
             var absPath = fields.name + ".jpg";
             fs_extra_1.default.removeSync(newpath);
             contact = new Contact_1.default(fields.ID, fields.name, fields.email, absPath, fields.phoneNumber, fields.countryCode, fields.isFavorite);
@@ -107,8 +105,10 @@ class ContactController {
                 if (err)
                     throw err;
                 contact.updateContact(fields.ID, (error, results) => {
-                    if (results.rowCount > 0)
+                    if (results.rowCount > 0) {
+                        logger_1.default.info(`there is one Contact is Updated`);
                         res.status(200).json({ message: "Contact Updated Successfuly" });
+                    }
                     else
                         res.status(200).json({ message: "No Contacts matched" });
                 });
@@ -119,7 +119,7 @@ class ContactController {
         var form = new formidable_1.default.IncomingForm();
         form.parse(req, function (err, fields, files) {
             var oldpath = files.image.filepath;
-            var newpath = '/public/uploads/' + fields.name + ".jpg";
+            var newpath = 'public/uploads/' + fields.name + ".jpg";
             var absPath = fields.name + ".jpg";
             fs_extra_1.default.removeSync(newpath);
             contact = new Contact_1.default(0, fields.name, fields.email, absPath, fields.phoneNumber, fields.countryCode, fields.isFavorite);
@@ -127,8 +127,10 @@ class ContactController {
                 if (err)
                     throw err;
                 contact.saveContact((error, results) => {
-                    if (results.rowCount > 0)
+                    if (results.rowCount > 0) {
+                        logger_1.default.info(`there is one Contact is Created`);
                         res.status(200).json({ message: "Contact Created Successfuly" });
+                    }
                     else
                         res.status(200).json({ message: error });
                 });
@@ -137,3 +139,4 @@ class ContactController {
     }
 }
 exports.default = ContactController;
+//# sourceMappingURL=ContactController.js.map
