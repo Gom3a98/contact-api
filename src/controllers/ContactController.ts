@@ -24,7 +24,7 @@ export default class ContactController {
         contact.getContactByName(req.body.name , (error : String , results : any)=>{
             if (!error){
                 if (results.rows.length > 0){
-                    logger.info(`Contact with name ${results.rows[0].name} is retrieved`)
+                    logger.info(`Contact with name ${results.rows[0].contact_name} is retrieved`)
                     res.status(200).json(results.rows[0]);
                 }
                 else {

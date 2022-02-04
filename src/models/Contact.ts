@@ -20,13 +20,13 @@ export default class Contact {
         this.isFavorite = isFavorite;
     }
     getAllContacts(callback: Function) {
-        let sql = "select * from Contact order by name ASC";
+        let sql = "select * from Contact order by contact_name ASC";
         DB.query(sql, callback)
         logger.info("All Contacts is Retrieved")
 
     }
     getContactByName(name: String, callback: Function) {
-        let sql = "select * from Contact where name like $1";
+        let sql = "select * from Contact where contact_name like $1";
         DB.query(sql, [name], callback);
         
     }
@@ -39,7 +39,7 @@ export default class Contact {
         DB.query(sql, [phoneNumber], callback);
     }
     saveContact(callback: Function) {
-        let sql = "INSERT INTO Contact (name, email , image ,phone_number, country_code, isFavorite) VALUES ($1,$2,$3,$4,$5 , $6)";
+        let sql = "INSERT INTO Contact (contact_name, email , contact_image ,phone_number, country_code, isfavorite) VALUES ($1,$2,$3,$4,$5 , $6)";
         DB.query(sql, [this.name, this.email, this.image, this.phoneNumber, this.country_code, this.isFavorite], callback)
     }
     deleteContact(id: Number, callback: Function) {
@@ -47,11 +47,11 @@ export default class Contact {
         DB.query(sql,[id], callback);
     }
     updateContact(id: Number, callback: Function) {
-        let sql = "UPDATE Contact SET name = $1 ,email = $2 , image = $3 ,phone_number = $4 , country_code = $5 , isFavorite = $6 WHERE ID= $7";
+        let sql = "UPDATE Contact SET contact_name = $1 ,email = $2 , contact_image = $3 ,phone_number = $4 , country_code = $5 , isfavorite = $6 WHERE ID= $7";
         DB.query(sql, [this.name, this.email, this.image, this.phoneNumber, this.country_code, this.isFavorite , id], callback);
     }
     toggleIsFavorite(status: Boolean, id: String, callback: Function) {
-        let sql = "UPDATE Contact SET isFavorite = $1 where ID = $2";
+        let sql = "UPDATE Contact SET isfavorite = $1 where id = $2";
         DB.query(sql, [status, id], callback);
     }
 }
